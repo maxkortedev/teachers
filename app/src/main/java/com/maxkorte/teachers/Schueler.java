@@ -10,23 +10,17 @@ public class Schueler {
     // instance variables
     private final String firstName;
     private String lastName;
-    private final Date birthday;
     private static int count;
     private final HashMap<Byte, Byte> grades = new HashMap<>();
 
     // constructors
-    public Schueler(String firstName, String lastName, Date birthday){
+    public Schueler(String firstName, String lastName){
         if(firstName == null || lastName == null){
             throw new Error("parameters should not be null");
         }
         this.firstName = firstName;
-        this.birthday = birthday;
         setLastName(lastName);
         count++;
-    }
-
-    public Schueler(String firstName, String lastName){
-        this(firstName, lastName, null);
     }
 
     // standard methods
@@ -42,10 +36,6 @@ public class Schueler {
         this.lastName = lastName;
     }
 
-    public Date getBirthday() {
-        return birthday;
-    }
-
     public static int getCount(){
         return count;
     }
@@ -56,8 +46,7 @@ public class Schueler {
 
     @Override
     public String toString() {
-        return firstName + " " + lastName + ", Geburtstag: " + getBirthday().getDay() + "." + getBirthday().getMonth()
-                + "." + getBirthday().getYear();
+        return firstName + " " + lastName;
     }
 
     @Override
@@ -65,22 +54,12 @@ public class Schueler {
         if (this == o) return true;
         if (!(o instanceof Schueler)) return false;
         Schueler person = (Schueler) o;
-        return getFirstName().equals(person.getFirstName()) && getLastName().equals(person.getLastName())
-                && Objects.equals(getBirthday(), person.getBirthday());
+        return getFirstName().equals(person.getFirstName()) && getLastName().equals(person.getLastName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFirstName(), getLastName(), getBirthday());
-    }
-
-    // custom methods
-    public int getAge(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.GERMAN);
-        int birthday = this.birthday.getYear() * 365 + this.birthday.getMonth() * 12 + this.birthday.getDay();
-        int today = (new Date().getYear() + 1900) * 365 + (new Date().getMonth()) * 12 + (new Date().getDay());
-
-        return (today - birthday - 1) / 365;
+        return Objects.hash(getFirstName(), getLastName());
     }
 
     public void addGrade(byte quartal, byte points) throws Exception{

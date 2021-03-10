@@ -12,7 +12,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         boolean running = true;
         while (running){
-            System.out.println("Du hast " + Lerngruppe.getCount() + " Lerngruppen und " + Schueler.getCount() + "Schüler");
+            System.out.println("Du hast " + lerngruppen.size() + " Lerngruppen und " + Schueler.getCount() + " Schüler");
             System.out.println();
             System.out.println("Was möchtest Du tun?");
             System.out.println("1: Lerngruppen anzeigen");
@@ -181,22 +181,14 @@ public class App {
     }
 
     private static void addSchueler(){
-        System.out.print("Gib den Namen des Schülers ein: ");
+        System.out.print("Gib den Vornamen des Schülers ein: ");
         String firstName = sc.next();
         System.out.print("Gib den Nachnamen des Schülers ein: ");
         String lastName = sc.next();
 
-        System.out.print("Geburtstag Jahr: ");
-        short year = sc.nextShort();
-        System.out.print("Geburtstag Monat: ");
-        byte month = sc.nextByte();
-        System.out.print("Geburtstag Tag: ");
-        byte day = sc.nextByte();
-        Date birthday = new Date(year, month, day);
-
         Lerngruppe lerngruppe = lerngruppen.get(selectLerngruppe());
 
-        Schueler neuerSchueler = new Schueler(firstName, lastName, birthday);
+        Schueler neuerSchueler = new Schueler(firstName, lastName);
         lerngruppe.getSchuelerList().add(neuerSchueler);
 
         System.out.println("Folgender Schüler wurde hinzugefügt: " + neuerSchueler + " in " + lerngruppe);
@@ -212,10 +204,10 @@ public class App {
         lerngruppe.listSchueler();
 
         System.out.print("Gib die Nummer des zu löschenden Schülers ein: ");
-        Schueler geloeschterSchueler = lerngruppe.getSchuelerList().get(sc.nextByte() - 1);
+        Schueler geloeschterSchueler = lerngruppe.getSchuelerList().get((sc.nextByte() - 1));
         lerngruppe.getSchuelerList().remove(geloeschterSchueler);
 
-        System.out.println("Folgender Schueler wurde gelöscht: " + geloeschterSchueler + "aus " + lerngruppe);
+        System.out.println("Folgender Schueler wurde gelöscht: " + geloeschterSchueler + " aus " + lerngruppe);
         System.out.println("Rückgängig: 0, Bestätigen: 1");
         if(sc.nextByte() == 0){
             lerngruppe.getSchuelerList().add(geloeschterSchueler);

@@ -62,7 +62,7 @@ public abstract class Lerngruppe {
         } else{
             for (int i = 0; i < getSchuelerList().size(); i++){
                 Schueler s = getSchuelerList().get(i);
-                System.out.println( "  " + (i+1) + ": " + s.getFirstName() + " " + s.getLastName() + ", Alter: " + s.getAge());
+                System.out.println( "  " + (i+1) + ": " + s.getFirstName() + " " + s.getLastName());
                 if(s.getGrades().containsKey(1) || s.getGrades().containsKey(2)){
                     System.out.println("    1. HJ: " + s.getH1grade() + " Punkte");
                 }
