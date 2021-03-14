@@ -1,9 +1,6 @@
 package com.maxkorte.teachers;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Objects;
 
 public class Schueler {
@@ -11,12 +8,12 @@ public class Schueler {
     private final String firstName;
     private String lastName;
     private static int count;
-    private final HashMap<Byte, Byte> grades = new HashMap<>();
+    private final HashMap<Integer, Integer> grades = new HashMap<>();
 
     // constructors
     public Schueler(String firstName, String lastName){
         if(firstName == null || lastName == null){
-            throw new Error("parameters should not be null");
+            throw new IllegalArgumentException("parameters should not be null");
         }
         this.firstName = firstName;
         setLastName(lastName);
@@ -40,7 +37,7 @@ public class Schueler {
         return count;
     }
 
-    public HashMap<Byte, Byte> getGrades(){
+    public HashMap<Integer, Integer> getGrades(){
         return grades;
     }
 
@@ -62,20 +59,26 @@ public class Schueler {
         return Objects.hash(getFirstName(), getLastName());
     }
 
-    public void addGrade(byte quartal, byte points) throws Exception{
-        if(quartal < 1 || quartal > 4){
-            throw new QuartalException();
-        } else if(points < 0 || points > 15){
-            throw new PointsException();
-        }
+    public void addGrade(int quartal, int points) throws Exception{
+        if(quartal < 1 || quartal > 4) throw new QuartalException();
+        if(points < 0 || points > 15) throw new PointsException();
+
         grades.put(quartal, points);
     }
 
-    public int getH1grade(){
-        return (grades.get(1) + grades.get(2)) / 2;
+    public Double getH1grade(){
+        try {
+            return (grades.get(1) + grades.get(2)) / 2.0;
+        } catch (Exception e){
+            return null;
+        }
     }
 
-    public int getH2grade(){
-        return (grades.get(3) + grades.get(4)) / 2;
+    public Double getH2grade(){
+        try {
+            return (grades.get(3) + grades.get(4)) / 2.0;
+        } catch (Exception e){
+            return null;
+        }
     }
 }
