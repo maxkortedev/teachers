@@ -3,10 +3,7 @@
  */
 package com.maxkorte.teachers;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 class SchuelerTest {
     static Schueler s;
@@ -53,5 +50,10 @@ class SchuelerTest {
         s.addGrade(2, 12);
         s.addGrade(3, 8);
         s.addGrade(4, 13);
+    }
+
+    @AfterAll
+    private static void cleanUp(){
+        s = null;
     }
 }
